@@ -162,6 +162,295 @@ Table 2: Table 2
 
 <div class="cell-output-display">
 
+<div id="jqvkajhvfa" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  &#10;  
+
+<table class="gt_table do-not-create-environment cell"
+data-quarto-postprocess="true" data-quarto-disable-processing="false"
+data-quarto-bootstrap="false"
+style="-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: system-ui, &#39;Segoe UI&#39;, Roboto, Helvetica, Arial, sans-serif, &#39;Apple Color Emoji&#39;, &#39;Segoe UI Emoji&#39;, &#39;Segoe UI Symbol&#39;, &#39;Noto Color Emoji&#39;; display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 3px; border-top-color: #A8A8A8; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 3px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3;"
+data-bgcolor="#FFFFFF">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead style="border-style: none;">
+<tr class="gt_col_headings"
+style="border-style: none; border-top-style: none; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3;">
+<th id="a::stub" class="gt_col_heading gt_columns_bottom_border gt_left"
+data-quarto-table-cell-role="th" scope="col"
+style="text-align: left; border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden;"
+data-bgcolor="#FFFFFF" data-valign="bottom">Type of platform</th>
+<th id="Wave" class="gt_col_heading gt_columns_bottom_border gt_right"
+data-quarto-table-cell-role="th" scope="col"
+style="text-align: right; border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-bgcolor="#FFFFFF" data-valign="bottom">Wave</th>
+<th id="Number-of-days"
+class="gt_col_heading gt_columns_bottom_border gt_right"
+data-quarto-table-cell-role="th" scope="col"
+style="text-align: right; border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-bgcolor="#FFFFFF" data-valign="bottom">Number of days</th>
+<th id="Number-of-test-kits-ordered"
+class="gt_col_heading gt_columns_bottom_border gt_right"
+data-quarto-table-cell-role="th" scope="col"
+style="text-align: right; border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-bgcolor="#FFFFFF" data-valign="bottom">Number of test kits
+ordered</th>
+<th id="Order-rate"
+class="gt_col_heading gt_columns_bottom_border gt_right"
+data-quarto-table-cell-role="th" scope="col"
+style="text-align: right; border-style: none; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 6px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-bgcolor="#FFFFFF" data-valign="bottom">Order rate</th>
+</tr>
+</thead>
+<tbody class="gt_table_body"
+style="border-style: none; border-top-style: none; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: none; border-bottom-width: 2px; border-bottom-color: #D3D3D3;">
+<tr class="gt_group_heading_row" style="border-style: none;">
+<td colspan="5" id="Dating app" class="gt_group_heading"
+data-quarto-table-cell-role="th" scope="colgroup"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-top-style: none; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: none; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle;"
+data-bgcolor="#FFFFFF" data-valign="middle">Dating app</td>
+</tr>
+<tr class="gt_row_group_first" style="border-style: none;">
+<td id="stub_1_1" class="gt_row gt_left gt_stub"
+data-quarto-table-cell-role="th" scope="row"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px; border-top-width: 2px;"
+data-valign="middle" data-bgcolor="#FFFFFF">Grindr</td>
+<td class="gt_row gt_right" headers="Dating app stub_1_1 Wave"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums; border-top-width: 2px;"
+data-valign="middle"><span class="gt_footnote_marks"
+style="font-size: 75%; vertical-align: 0.4em; position: initial; white-space: nowrap; font-style: italic; font-weight: normal; line-height: 0;"><sup>1</sup></span> 1</td>
+<td class="gt_row gt_right" headers="Dating app stub_1_1 Number of days"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums; border-top-width: 2px;"
+data-valign="middle">70</td>
+<td class="gt_row gt_right"
+headers="Dating app stub_1_1 Number of test kits ordered"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums; border-top-width: 2px;"
+data-valign="middle">9</td>
+<td class="gt_row gt_right" headers="Dating app stub_1_1 Order rate"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums; border-top-width: 2px;"
+data-valign="middle">0.13</td>
+</tr>
+<tr style="border-style: none;">
+<td id="stub_1_2" class="gt_row gt_left gt_stub"
+data-quarto-table-cell-role="th" scope="row"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px;"
+data-valign="middle" data-bgcolor="#FFFFFF">Jack'd</td>
+<td class="gt_row gt_right" headers="Dating app stub_1_2 Wave"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">2</td>
+<td class="gt_row gt_right" headers="Dating app stub_1_2 Number of days"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">38</td>
+<td class="gt_row gt_right"
+headers="Dating app stub_1_2 Number of test kits ordered"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">126</td>
+<td class="gt_row gt_right" headers="Dating app stub_1_2 Order rate"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">3.32</td>
+</tr>
+<tr style="border-style: none;">
+<td id="stub_1_3" class="gt_row gt_left gt_stub"
+data-quarto-table-cell-role="th" scope="row"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px;"
+data-valign="middle" data-bgcolor="#FFFFFF"><br />
+</td>
+<td class="gt_row gt_right" headers="Dating app stub_1_3 Wave"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle"><br />
+</td>
+<td class="gt_row gt_right" headers="Dating app stub_1_3 Number of days"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">108</td>
+<td class="gt_row gt_right"
+headers="Dating app stub_1_3 Number of test kits ordered"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">135</td>
+<td class="gt_row gt_right" headers="Dating app stub_1_3 Order rate"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">1.25</td>
+</tr>
+<tr class="gt_group_heading_row" style="border-style: none;">
+<td colspan="5" id="Info site" class="gt_group_heading"
+data-quarto-table-cell-role="th" scope="colgroup"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-top-style: none; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: none; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle;"
+data-bgcolor="#FFFFFF" data-valign="middle">Info site</td>
+</tr>
+<tr class="gt_row_group_first" style="border-style: none;">
+<td id="stub_1_4" class="gt_row gt_left gt_stub"
+data-quarto-table-cell-role="th" scope="row"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px; border-top-width: 2px;"
+data-valign="middle" data-bgcolor="#FFFFFF">Google</td>
+<td class="gt_row gt_right" headers="Info site stub_1_4 Wave"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums; border-top-width: 2px;"
+data-valign="middle"><span class="gt_footnote_marks"
+style="font-size: 75%; vertical-align: 0.4em; position: initial; white-space: nowrap; font-style: italic; font-weight: normal; line-height: 0;"><sup>1</sup></span> 1</td>
+<td class="gt_row gt_right" headers="Info site stub_1_4 Number of days"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums; border-top-width: 2px;"
+data-valign="middle">70</td>
+<td class="gt_row gt_right"
+headers="Info site stub_1_4 Number of test kits ordered"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums; border-top-width: 2px;"
+data-valign="middle">16</td>
+<td class="gt_row gt_right" headers="Info site stub_1_4 Order rate"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums; border-top-width: 2px;"
+data-valign="middle">0.23</td>
+</tr>
+<tr style="border-style: none;">
+<td id="stub_1_5" class="gt_row gt_left gt_stub"
+data-quarto-table-cell-role="th" scope="row"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px;"
+data-valign="middle" data-bgcolor="#FFFFFF">Bing</td>
+<td class="gt_row gt_right" headers="Info site stub_1_5 Wave"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">2</td>
+<td class="gt_row gt_right" headers="Info site stub_1_5 Number of days"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">38</td>
+<td class="gt_row gt_right"
+headers="Info site stub_1_5 Number of test kits ordered"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">0</td>
+<td class="gt_row gt_right" headers="Info site stub_1_5 Order rate"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">0.00</td>
+</tr>
+<tr style="border-style: none;">
+<td id="stub_1_6" class="gt_row gt_left gt_stub"
+data-quarto-table-cell-role="th" scope="row"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px;"
+data-valign="middle" data-bgcolor="#FFFFFF"><br />
+</td>
+<td class="gt_row gt_right" headers="Info site stub_1_6 Wave"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle"><br />
+</td>
+<td class="gt_row gt_right" headers="Info site stub_1_6 Number of days"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">108</td>
+<td class="gt_row gt_right"
+headers="Info site stub_1_6 Number of test kits ordered"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">16</td>
+<td class="gt_row gt_right" headers="Info site stub_1_6 Order rate"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">0.15</td>
+</tr>
+<tr class="gt_group_heading_row" style="border-style: none;">
+<td colspan="5" id="Social media" class="gt_group_heading"
+data-quarto-table-cell-role="th" scope="colgroup"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-top-style: none; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: none; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle;"
+data-bgcolor="#FFFFFF" data-valign="middle">Social media</td>
+</tr>
+<tr class="gt_row_group_first" style="border-style: none;">
+<td id="stub_1_7" class="gt_row gt_left gt_stub"
+data-quarto-table-cell-role="th" scope="row"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px; border-top-width: 2px;"
+data-valign="middle" data-bgcolor="#FFFFFF">Facebook</td>
+<td class="gt_row gt_right" headers="Social media stub_1_7 Wave"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums; border-top-width: 2px;"
+data-valign="middle"><span class="gt_footnote_marks"
+style="font-size: 75%; vertical-align: 0.4em; position: initial; white-space: nowrap; font-style: italic; font-weight: normal; line-height: 0;"><sup>1</sup></span> 1</td>
+<td class="gt_row gt_right"
+headers="Social media stub_1_7 Number of days"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums; border-top-width: 2px;"
+data-valign="middle">70</td>
+<td class="gt_row gt_right"
+headers="Social media stub_1_7 Number of test kits ordered"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums; border-top-width: 2px;"
+data-valign="middle">13</td>
+<td class="gt_row gt_right" headers="Social media stub_1_7 Order rate"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums; border-top-width: 2px;"
+data-valign="middle">0.19</td>
+</tr>
+<tr style="border-style: none;">
+<td id="stub_1_8" class="gt_row gt_left gt_stub"
+data-quarto-table-cell-role="th" scope="row"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px;"
+data-valign="middle" data-bgcolor="#FFFFFF">Instagram</td>
+<td class="gt_row gt_right" headers="Social media stub_1_8 Wave"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">2</td>
+<td class="gt_row gt_right"
+headers="Social media stub_1_8 Number of days"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">38</td>
+<td class="gt_row gt_right"
+headers="Social media stub_1_8 Number of test kits ordered"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">13</td>
+<td class="gt_row gt_right" headers="Social media stub_1_8 Order rate"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">0.34</td>
+</tr>
+<tr style="border-style: none;">
+<td id="stub_1_9" class="gt_row gt_left gt_stub"
+data-quarto-table-cell-role="th" scope="row"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px;"
+data-valign="middle" data-bgcolor="#FFFFFF"><br />
+</td>
+<td class="gt_row gt_right" headers="Social media stub_1_9 Wave"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle"><br />
+</td>
+<td class="gt_row gt_right"
+headers="Social media stub_1_9 Number of days"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">108</td>
+<td class="gt_row gt_right"
+headers="Social media stub_1_9 Number of test kits ordered"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">26</td>
+<td class="gt_row gt_right" headers="Social media stub_1_9 Order rate"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums;"
+data-valign="middle">0.24</td>
+</tr>
+<tr class="gt_group_heading_row" style="border-style: none;">
+<td colspan="5" id="Total" class="gt_group_heading"
+data-quarto-table-cell-role="th"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; color: #333333; background-color: #FFFFFF; font-size: 100%; text-transform: inherit; border-top-style: none; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: none; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; font-weight: bold;"
+scope="colgroup" data-bgcolor="#FFFFFF" data-valign="middle">Total</td>
+</tr>
+<tr class="gt_row_group_first" style="border-style: none;">
+<td id="stub_1_10" class="gt_row gt_left gt_stub"
+data-quarto-table-cell-role="th" scope="row"
+style="text-align: left; border-style: none; padding-top: 8px; padding-bottom: 8px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px; border-top-width: 2px;"
+data-valign="middle" data-bgcolor="#FFFFFF"><br />
+</td>
+<td class="gt_row gt_right" headers="Total stub_1_10 Wave"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums; border-top-width: 2px;"
+data-valign="middle"><br />
+</td>
+<td class="gt_row gt_right" headers="Total stub_1_10 Number of days"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums; border-top-width: 2px;"
+data-valign="middle">108</td>
+<td class="gt_row gt_right"
+headers="Total stub_1_10 Number of test kits ordered"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums; border-top-width: 2px;"
+data-valign="middle">177</td>
+<td class="gt_row gt_right" headers="Total stub_1_10 Order rate"
+style="text-align: right; border-style: none; padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: none; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; font-variant-numeric: tabular-nums; border-top-width: 2px;"
+data-valign="middle">1.64</td>
+</tr>
+</tbody><tfoot style="border-style: none;">
+<tr class="gt_footnotes"
+style="border-style: none; color: #333333; background-color: #FFFFFF; border-bottom-style: none; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3;"
+data-bgcolor="#FFFFFF">
+<td colspan="5" class="gt_footnote"
+style="text-align: left; border-style: none; margin: 0px; font-size: 90%; padding-top: 4px; padding-bottom: 4px; padding-left: 5px; padding-right: 5px;"><span
+class="gt_footnote_marks"
+style="font-size: 75%; vertical-align: 0.4em; position: initial; white-space: nowrap; font-style: italic; font-weight: normal; line-height: 0;"><sup>1</sup></span>
+Wave 1a duration was 70 days.</td>
+</tr>
+</tfoot>
+&#10;</table>
+
+</div>
+
 </div>
 
 </div>
@@ -182,6 +471,41 @@ same 5% level.
 When checking the model for overdispersion, the residual deviance is
 approximately equal to the residual degrees of freedom, which means that
 there is no significant over/underdispersion.
+
+<div id="ytiqieoopk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  &#10;  
+
+| Predicted Test Kit Order Rates |  |  |
+|:---|:---|:---|
+| Estimates derived from Poisson Regression |  |  |
+| Platform Name | Wave | Predicted Order Rate (kits/day) |
+| Social media |  |  |
+| Facebook | 1 | 0.186 |
+| Instagram | 2 | 0.342 |
+| Dating app |  |  |
+| Grindr | 1 | 0.129 |
+| Jack'D | 2 | 3.316 |
+| Info site |  |  |
+| Google | 1 | 0.229 |
+| Bing | 2 | 0.000 |
+
+</div>
+
+<div id="sozrempfvb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+  &#10;  
+
+| Contrast           | Ratio | Std. Error | DF  | null | Z-score | P-Value |
+|:-------------------|:------|:-----------|:----|:-----|:--------|:--------|
+| 2                  |       |            |     |      |         |         |
+| Bing / Instagram   | 0.00  | 0.00       | Inf | 1    | 0.00    | 1.00    |
+| Bing / Jack'd      | 0.00  | 0.00       | Inf | 1    | 0.00    | 1.00    |
+| Instagram / Jack'd | 0.10  | 0.03       | Inf | 1    | −7.80   | 0.00    |
+| 1                  |       |            |     |      |         |         |
+| Facebook / Google  | 0.81  | 0.30       | Inf | 1    | −0.56   | 0.58    |
+| Facebook / Grindr  | 1.44  | 0.63       | Inf | 1    | 0.85    | 0.58    |
+| Google / Grindr    | 1.78  | 0.74       | Inf | 1    | 1.38    | 0.50    |
+
+</div>
 
 ## Secondary Outcomes
 

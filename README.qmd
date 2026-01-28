@@ -442,7 +442,7 @@ final_table |>
       rows = Wave == "1"
     )
   ) |>
-  as_latex()
+  as_raw_html()
   
 ```
 
@@ -524,7 +524,7 @@ new_data |>
     table.border.top.color = "black",
     table.border.bottom.color = "black"
   ) |>
-  as_latex()
+  as_raw_html()
 ```
 
 ```{r}
@@ -579,7 +579,7 @@ contrasts_df |>
     align = "left",
     columns = contrast
   ) |>
-  as_latex()
+  as_raw_html()
 ```
 
 ## Secondary Outcomes
