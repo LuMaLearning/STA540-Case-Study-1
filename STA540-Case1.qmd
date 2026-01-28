@@ -6,6 +6,9 @@ editor: visual
 
 ```{r}
 #| label: setup
+#| echo: FALSE
+
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 library(tidyverse)
 library(stringr)
 library(gt)           # Package for tables
@@ -183,8 +186,8 @@ not_tested_HIV = df |>
 ```
 
 ```{r}
-#| label: table1
-#| tab-cap: "Table 1"
+#| label: tbl-table1
+#| tbl-cap: "Table 1"
 
 # Create Table 1 DF
 clean_df = df |>
@@ -293,10 +296,13 @@ table1
 
 ## Primary Outcome
 
-When checking the model for overdispersion, the residual deviance is approximately equal to the residual degrees of freedom, which means that there is no significant over/underdispersion. 
+The original paper uses Table 2 to summarize their primary outcome across different sites. The @tbl-primary below has identical information with the exception of 1 Google order. The paper had mentioned that there were no orders in Wave 3, however, in the dataset, there is one order under Yahoo (Wave 3). Mislabeled data could explain the discrepancy.
+
+As expected, since the tables closely match, the same conclusions from the primary analysis of the original paper still hold. Dating apps performed the best followed by social media and info sites. 
+
 
 ```{r}
-#| label: primary
+#| label: tbl-primary
 #| tbl-cap: "Table 2"
 
 # Remove large table
@@ -305,13 +311,14 @@ table1 = NULL
 # Calculate Order Rate
 table2 = df |>
   filter(PO_FLAG=="Include",
-         FINISHED==1) |>
-  mutate(ORA_REDEEMED = ifelse(ORA_REDEEMED=="Yes",1,0)) |>
+         FINISHED==1
+         ) |>
+  mutate(ORA_REDEEMED = ifelse(ORA_REDEEMED=="No",0,1)) |>
   group_by(SITE) |>
   summarise(ORA_REDEEMED = sum(ORA_REDEEMED),
             WAVE = min(WAVE),
             PLATFORM = min(PLATFORM)) |>
-  filter(WAVE < 3) |> # Exclude wave 4 from table
+  filter(WAVE < 3) |> # Exclude wave 3 from table
   # Add bing back in (no participants)
   bind_rows(
     tibble(
@@ -433,9 +440,13 @@ final_table |>
 
 ### Poisson Regression
 
+The Poisson model specified above leads to the following cell-specific rates in the table below. These rate closely match the order rates in @tbl-primary, indicating good model fit. 
+
+The paper also did pair-wise testing within wave by platform with a Hochberg correction. Performing the same analysis shows that none of the Wave 1 platforms were significantly different at a 5% significance level. In Wave 2, each platform was statistically significant at the same 5% level.
+
+When checking the model for overdispersion, the residual deviance is approximately equal to the residual degrees of freedom, which means that there is no significant over/underdispersion. 
 ```{r}
 #| label: poisson
-
 
 model = glm(ORA_REDEEMED ~ PLATFORM * WAVE, 
              family = poisson(link = "log"), 
@@ -445,15 +456,15 @@ model = glm(ORA_REDEEMED ~ PLATFORM * WAVE,
 emm_category = emmeans(model, ~ PLATFORM, type = "response")
 
 # View the estimated rates per category
-print("Estimated Marginal Means (Rates):")
-print(emm_category)
+#print("Estimated Marginal Means (Rates):")
+#print(emm_category)
 
 # Perform Pairwise Comparisons with Benjamini-Hochberg (BH) Correction
 contrasts_bh = contrast(emm_category, method = "pairwise", adjust = "bh")
 
 # Display the results
-print("Pairwise Comparisons with BH Correction:")
-print(contrasts_bh)
+#print("Pairwise Comparisons with BH Correction:")
+#print(contrasts_bh)
 
 
 # Cell-specific rates
@@ -516,25 +527,61 @@ model = glm(ORA_REDEEMED ~ SITE * WAVE,
 # Check for overdispersion
 dispersion = deviance(model) / df.residual(model) 
 
-emmeans(model, ~ SITE, type="response")
+#emmeans(model, ~ SITE, type="response")
 
 emm_category = emmeans(model, ~ SITE | WAVE, type = "response")
 
 # Perform Pairwise Comparisons with Benjamini-Hochberg (BH) Correction
 contrasts_bh = contrast(emm_category, method = "pairwise", adjust = "bh")
 
-# Display the results
-print("Pairwise Comparisons with BH Correction:")
-print(contrasts_bh)
+# Convert emmeans contrasts output -> tibble
+contrasts_df = as.data.frame(contrasts_bh)
 
+# Pipe into gt for formatting
+contrasts_df |>
+  select(-.static.offset.) |> 
+  
+  # Group by WAVE to separate the table into distinct sections
+  group_by(WAVE) |> 
+  
+  gt() |>
+  
+  # Format numbers: 3 decimal places 
+  fmt_number(
+    columns = c(ratio, SE, z.ratio),
+    decimals = 2
+  ) |>
+  fmt_number(
+    columns = p.value,
+    decimals = 2
+  ) |>
+  # Rename columns
+  cols_label(
+    contrast = "Contrast",
+    ratio = "Ratio",
+    SE = "Std. Error",
+    df = "DF",
+    z.ratio = "Z-score",
+    p.value = "P-Value"
+  ) |>
+  
+  # Align columns for readability
+  cols_align(
+    align = "left",
+    columns = contrast
+  )
 ```
 
 ## Secondary Outcomes
 
+Overall, the secondary analysis conclusions match the original paper's assertions. The resulting p-values are very similar, if not the same. The only significant (5% level) difference found between those that did and did not order a test kit was opinions on HIV stigma. Substance abuse was high among all participants (see @tbl-a). Even though medical mistrust was high among participants, it did not seem to impact test kit ordering (see @tbl-f). 
+
+
 #### a. Tobacco, alcohol, prescription medications, and other substance use
 
 ```{r}
-#| label: secondary
+#| label: tbl-a
+#| tbl-cap: ""
 
 # Clear workspace except df
 rm(list = setdiff(ls(),"df"))
@@ -603,7 +650,7 @@ df_a |>
 #### b. Stage of Health Behavior Change
 
 ```{r}
-#| label: b
+#| label: tbl-b
 
 
 df |>
@@ -641,7 +688,7 @@ mutate(
 #### c. Attitudes toward human immunodeficiency virus (HIV) testing
 
 ```{r}
-#| label: c
+#| label: tbl-c
 
 cols = c("Q15_3", "Q15_4", "Q15_5", "Q15_6", "Q15_7")
 
@@ -692,7 +739,7 @@ df |>
 #### d. Attitudes toward human immunodeficiency virus (HIV) treatment
 
 ```{r}
-#| label: d
+#| label: tbl-d
 
 df |>
   filter(PO_FLAG=="Include",
@@ -745,7 +792,7 @@ df |>
 #### e. Human immunodeficiency virus (HIV)-related stigma among study participants
 
 ```{r}
-#| label: e
+#| label: tbl-e
 
 cols = c("Q14_2", "Q14_3", "Q14_4", "Q14_5")
 
@@ -801,7 +848,9 @@ df |>
 #### f. Medical mistrust
 
 ```{r}
-#| label: f
+#| label: tbl-f
+#| tbl-cap: ""
+
 cols = c("Q16_1", "Q16_2", "Q16_3", "Q16_4", "Q16_5", "Q16_6", "Q16_7")
 other_cols = setdiff(cols, "Q16_1")
 
@@ -859,3 +908,18 @@ df |>
 
 
 ```
+
+## Reflection
+
+Overall, the study was for the most part able to be replicated. There were a few minor deviances, but none that would alter the study's conclusions or even magnitude of significance levels. Overall, it would be beneficial if they provided public code to double check if there are any differences in procedures. They also used SAS, which may have different defaults, that could lead to minor difference in Poisson model calculation. 
+
+## References
+
+1. Stafylis C, Vavala G, Wang Q, McLeman B, Lemley SM, Young SD, Xie H, Matthews AG, Oden N, Revoredo L, Shmueli-Blumberg D, Hichborn EG, McKelle E, Moran LM, Jacobs P, Marsch LA, Klausner JD. Relative Effectiveness of Social Media, Dating Apps, and Information Search Sites in Promoting HIV Self-testing: Observational Cohort Study. JMIR Form Res. 2022 Sep 23;6(9):e35648. doi: 10.2196/35648. PMID: 36149729; PMCID: PMC9591705.
+
+2. National Institute on Drug Abuse. (2025, April 9). *NIDA-CTN-0083: Using social media to deliver HIV self-testing kits and link to online PrEP services*. NIDA Data Share. https://datashare.nida.nih.gov/study/nida-ctn-0083
+
+3. Lenth, R., & Piaskowski, J. (2025). *emmeans: Estimated marginal means, aka least-squares means* (R package version 2.0.1). https://rvlenth.github.io/emmeans/ :contentReference[oaicite:0]{index=0}
+
+4. OpenAI. (2026). *ChatGPT* (GPT-5.2) [Large language model]. https://chat.openai.com. Used for table formatting code
+
