@@ -19,6 +19,8 @@ library(gtsummary)    # Package for tables
 library(emmeans)
 ```
 
+
+
 ## Study Overview
 
 Various platforms have been used to target individuals at risk of infections. It is not clear which platform is more effective at reaching out to promote Human Immunodeficiency Virus (HIV) self-testing. The following work attempts to reproduce the findings of Stafylis et. al. in their paper, *Relative Effectiveness of Social Media, Dating Apps, and Information Search Sites in Promoting HIV Self-testing: Observational Cohort Study*.
@@ -73,6 +75,8 @@ Individuals must meet all of the inclusion criteria in order to be eligible to p
 9. Be willing to provide contact information (phone number, email) to the study team.
 
 
+
+
 ```{r}
 #| label: inclusion
 df = read.csv('case1-data/CTN_FINAL.csv')
@@ -95,11 +99,15 @@ df = df |>
          )
 ```
 
+
+
 ## Table 1
 
 After applying the inclusion and exclusion criteria listed above, there are still a few participants who do not have a primary outcome that need to be excluded. The resulting data has 254 participants. Replicating @tbl-table1 leads to the following results. 
 
 The table closely matches the original paper's, with a few minor differences. The quartile for age, other ethnicity, and few differences in reasons for not gettting HIV testing are slightly off. 
+
+
 
 
 ```{r}
@@ -297,11 +305,15 @@ table1 = clean_df |>
 table1
 ```
 
+
+
 ## Primary Outcome
 
 The original paper uses Table 2 to summarize their primary outcome across different sites. The @tbl-primary below has identical information with the exception of 1 Google order. The paper had mentioned that there were no orders in Wave 3, however, in the dataset, there is one order under Yahoo (Wave 3). Mislabeled data could explain the discrepancy.
 
 As expected, since the tables closely match, the same conclusions from the primary analysis of the original paper still hold. Dating apps performed the best followed by social media and info sites. 
+
+
 
 
 ```{r}
@@ -441,6 +453,8 @@ final_table |>
   
 ```
 
+
+
 ### Poisson Regression
 
 The Poisson model specified above leads to the following cell-specific rates in the table below. These rate closely match the order rates in @tbl-primary, indicating good model fit. 
@@ -448,6 +462,8 @@ The Poisson model specified above leads to the following cell-specific rates in 
 The paper also did pair-wise testing within wave by platform with a Hochberg correction. Performing the same analysis shows that none of the Wave 1 platforms were significantly different at a 5% significance level. In Wave 2, each platform was statistically significant at the same 5% level.
 
 When checking the model for overdispersion, the residual deviance is approximately equal to the residual degrees of freedom, which means that there is no significant over/underdispersion. 
+
+
 ```{r}
 #| label: poisson
 
@@ -575,12 +591,16 @@ contrasts_df |>
   )
 ```
 
+
+
 ## Secondary Outcomes
 
 Overall, the secondary analysis conclusions match the original paper's assertions. The resulting p-values are very similar, if not the same. The only significant (5% level) difference found between those that did and did not order a test kit was opinions on HIV stigma. Substance abuse was high among all participants (see @tbl-a). Even though medical mistrust was high among participants, it did not seem to impact test kit ordering (see @tbl-f). 
 
 
 #### a. Tobacco, alcohol, prescription medications, and other substance use
+
+
 
 ```{r}
 #| label: tbl-a
@@ -650,7 +670,11 @@ df_a |>
 
 ```
 
+
+
 #### b. Stage of Health Behavior Change
+
+
 
 ```{r}
 #| label: tbl-b
@@ -687,7 +711,11 @@ mutate(
 
 ```
 
+
+
 #### c. Attitudes toward human immunodeficiency virus (HIV) testing
+
+
 
 ```{r}
 #| label: tbl-c
@@ -738,7 +766,11 @@ df |>
 
 ```
 
+
+
 #### d. Attitudes toward human immunodeficiency virus (HIV) treatment
+
+
 
 ```{r}
 #| label: tbl-d
@@ -791,7 +823,11 @@ df |>
 
 ```
 
+
+
 #### e. Human immunodeficiency virus (HIV)-related stigma among study participants
+
+
 
 ```{r}
 #| label: tbl-e
@@ -847,7 +883,11 @@ df |>
 
 ```
 
+
+
 #### f. Medical mistrust
+
+
 
 ```{r}
 #| label: tbl-f
@@ -911,6 +951,8 @@ df |>
 
 ```
 
+
+
 ## Reflection
 
 Overall, the study was for the most part able to be replicated. There were a few minor deviances, but none that would alter the study's conclusions or even magnitude of significance levels. Overall, it would be beneficial if they provided public code to double check if there are any differences in procedures. They also used SAS, which may have different defaults, that could lead to minor difference in Poisson model calculation. 
@@ -924,4 +966,5 @@ Overall, the study was for the most part able to be replicated. There were a few
 3. Lenth, R., & Piaskowski, J. (2025). *emmeans: Estimated marginal means, aka least-squares means* (R package version 2.0.1). https://rvlenth.github.io/emmeans/ :contentReference[oaicite:0]{index=0}
 
 4. OpenAI. (2026). *ChatGPT* (GPT-5.2) [Large language model]. https://chat.openai.com. Used for table formatting code
+
 
