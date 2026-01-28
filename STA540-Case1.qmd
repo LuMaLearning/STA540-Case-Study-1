@@ -1,0 +1,810 @@
+---
+title: "STA540 Case 1"
+format: html
+editor: visual
+---
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(stringr)
+library(gt)           # Package for tables
+library(gtsummary)    # Package for tables
+library(emmeans)
+```
+
+## Study Overview
+
+Various platforms have been used to target individuals at risk of infections. It is not clear which platform is more effective at reaching out to promote Human Immunodeficiency Virus (HIV) self-testing. The following work attempts to reproduce the findings of Stafylis et. al. in their paper, *Relative Effectiveness of Social Media, Dating Apps, and Information Search Sites in Promoting HIV Self-testing: Observational Cohort Study*.
+
+## Objectives
+
+The primary objective of this study is to compare the effectiveness of different web platforms in promoting self-testing of HIV among men who have sex with men (MSM). The three main platforms are social media, dating appslications, and informational sites. This study will also examine associations in participants’ social media use, attitudes on HIV testing, perceptions of sexual risk behavior, medical mistrust, and stigma impact HIV testing and PrEP uptake.
+
+### Primary Analysis
+
+The primary analysis will look at order rate as an outcome. The order rate is defined by the number of tests ordered divided by the duration of the period or wave. The order rate for each site was calculated in @tbl-primary. There are two sites for each platform. In addition, a Poisson model was used to model site specific rates
+
+### Secondary Analysis
+
+```{r}
+#| label: inclusion
+df = read.csv('case1-data/CTN_FINAL.csv')
+
+df = df |>
+  filter(Q3_1>=18, # Age between 18,30 inclusive
+         Q3_1<=30,
+         (Q5_1 == 1 | str_detect(Q5_3, "24")), # Race
+         Q4_1==1,  # Male at birth
+         Q6_1!=2,  # Not HIV pos
+         Q6_2!=2,  # Not on PreP in past 6 mo.
+         Q6_4==34, # Not tested for HIV in past 90 days
+         Q6_5==23, # Condomless anal sex
+         Q6_6==23, # 1+ male partner
+         Q6_7==1,  # FB account
+         Q6_8==33, # Agree to give contact info
+         Q7_1==41,  # Agree to join study
+         PO_FLAG=="Include",
+         FINISHED==1
+         )
+```
+
+## Table 1
+
+```{r}
+#| label: demographics
+
+num_hispanic = sum(df$Q5_1 == 1)
+percent_hispanic = mean(df$Q5_1 == 1) * 100
+
+race = df |>
+  mutate(
+    Q5_3 = as.character(Q5_3),
+    race_clean = case_when(
+      str_detect(Q5_3, ",") ~ "Multiracial",
+      Q5_3 == 23 ~ "White",
+      Q5_3 == 24 ~ "Black or African American",
+      Q5_3 == 25 ~ "American Indian or Alaska Native",
+      Q5_3 == 26 ~ "Asian",
+      Q5_3 == 27 ~ "Native Hawaiian or Pacific Islander",
+      Q5_3 == 28 ~ "Other",
+      Q5_3 == "" ~ "Other",
+      TRUE ~ NA_character_
+    )
+  ) |>
+  count(race_clean) |>
+  mutate(percent = n / sum(n) * 100)
+
+prep = df |>
+  mutate(
+    prep_clean = case_when(
+      Q6_2 == 1 ~ "In the past 6 months",
+      Q6_2 == 3 ~ "Never taken PrEP",
+      TRUE ~ NA_character_
+    )
+  ) |>
+  count(prep_clean) |>
+  mutate(percent = n / sum(n) * 100)
+
+not_tested = df|>
+  mutate(
+    not_tested_clean = case_when(
+      Q11_7 == 1 ~ "Unlikely to be exposed to HIV",
+      Q11_7 == 2 ~ "Afraid of testing HIV-positive",
+      Q11_7 == 3 ~ "Did not want to think about HIV/HIV-positive",
+      Q11_7 == 4 ~ "Worried about names being reported if positive",
+      Q11_7 == 5 ~ "Dislike for needles",
+      Q11_7 == 6 ~ "Unable to trust that the results will be confidential",
+      Q11_7 == 7 ~ "Unaware of where to get tested",
+      Q11_7 == 8 ~ "Other reasons",
+      TRUE ~ NA_character_
+    ) 
+  ) |>
+  count(not_tested_clean) |>
+  mutate(percent = n / sum(n) * 100)
+
+condom = df|>
+  mutate(
+    condom_clean = case_when(
+      Q11_3 == 1 ~ "Never",
+      Q11_3 == 2 ~ "Sometimes",
+      Q11_3 == 3 ~ "About half the time",
+      Q11_3 == 4 ~ "Most of the time",
+      Q11_3 == 5 ~ "Always",
+      TRUE ~ NA_character_
+    )
+  ) |>
+  count(condom_clean) |>
+  mutate(percent = n / sum(n) * 100)
+
+num_partners = df |>
+  summarise(
+    median = median(Q11_2, na.rm = TRUE),
+    q1 = quantile(Q11_2, 0.25, na.rm = TRUE),
+    q3 = quantile(Q11_2, 0.75, na.rm = TRUE)
+  )
+
+condomless = df |>
+  summarise(n = sum(Q11_4==1)) |>
+  mutate(percent = n/sum(n))
+
+tested_HIV = df |>
+  summarise(n = sum(Q11_5==1)) |>
+  mutate(percent = n/sum(n))
+
+not_tested_HIV = df |>
+  summarise(n = sum(Q11_5==2)) |>
+  mutate(percent = n/sum(n))
+```
+
+```{r}
+#| label: table1
+
+# Create Table 1 DF
+clean_df = df |>
+  mutate(
+    # Hispanic
+    ethnicity = ifelse(Q5_1 == 1, "Hispanic/Latinx", "Non-Hispanic"),
+    
+    # Race 
+    race_clean = case_when(
+      str_detect(as.character(Q5_3), ",") ~ "Multiracial",
+      Q5_3 == 23 ~ "White",
+      Q5_3 == 24 ~ "Black or African American",
+      Q5_3 == 25 ~ "American Indian or Alaskan Native", 
+      Q5_3 == 26 ~ "Asian",
+      Q5_3 == 27 ~ "Native Hawaiian or Pacific Islander",
+      Q5_3 == 28 ~ "Other",
+      TRUE ~ "Other" # Handling NAs or blank
+    ),
+    
+    # PrEP History
+    prep_clean = case_when(
+      Q6_2 == 1 ~ "In the past 6 months",
+      Q6_2 == 3 ~ "Never taken PrEP", 
+      TRUE ~ NA_character_
+    ),
+    
+    # Condom Use
+    condom_clean = factor(case_when(
+      Q11_3 == 1 ~ "Never",
+      Q11_3 == 2 ~ "Sometimes",
+      Q11_3 == 3 ~ "About half the time",
+      Q11_3 == 4 ~ "Most of the time",
+      Q11_3 == 5 ~ "Always"
+    ), levels = c("Never", "Sometimes", "About half the time", "Most of the time", "Always")),
+    
+    # Condomless Anal Sex
+    condomless_clean = ifelse(Q11_4 == 1, 1, 0),
+    
+    # Ever Tested for HIV 
+    ever_tested_clean = ifelse(Q11_5 == 1, 1, 0),
+    
+    # Months since last test 
+    months_since_test = -1*as.numeric(Q11_6)/30, 
+    
+    # Not test
+    never_tested = ifelse(Q11_5 == 2, 1, 0),
+    
+    # Reasons for not testing
+    not_tested_clean = case_when(
+      Q11_7 == 1 ~ "Unlikely to be exposed to HIV",
+      Q11_7 == 2 ~ "Afraid of testing HIV-positive",
+      Q11_7 == 3 ~ "Did not want to think about HIV/HIV-positive",
+      Q11_7 == 4 ~ "Worried about names being reported if positive",
+      Q11_7 == 5 ~ "Dislike for needles",
+      Q11_7 == 6 ~ "Unable to trust that the results will be confidential",
+      Q11_7 == 7 ~ "Unaware of where to get tested",
+      Q11_7 == 8 ~ "Other reasons",
+      TRUE ~ NA_character_
+    ),
+    
+    # Continuous variables 
+    partners_num = as.numeric(Q11_2),
+    age = as.numeric(Q3_1) # Assuming you have an 'Age' column
+  ) |> 
+  select(age, ethnicity, race_clean, prep_clean, partners_num, condom_clean,  condomless_clean, ever_tested_clean, never_tested, months_since_test, not_tested_clean)
+
+# Create table df
+table1 = clean_df |>
+  tbl_summary(
+    # Define summary stats
+    statistic = list(
+      all_continuous() ~ "{median} ({p25}-{p75})", 
+      all_categorical() ~ "{n} ({p}%)"             
+    ),
+    missing = "no", 
+    
+    # Change labels to match 
+    label = list(
+      age ~ "Age in years, median (IQR)",
+      ethnicity ~ "Ethnicity",
+      race_clean ~ "Race",
+      prep_clean ~ "History of PrEP uptake",
+      partners_num ~ "Number of male sex partners in the past 90 days, median (IQR)",
+      condom_clean ~ "Condom use",
+      condomless_clean ~ "Condomless receptive anal sex in the past 90 days",
+      ever_tested_clean ~ "Ever tested for HIV during lifetime",
+      months_since_test ~ "Months since last HIV test",
+      never_tested ~ "If not tested for HIV",
+      not_tested_clean ~ "Main reasons cited for not getting tested"      
+    ),
+    
+    # Check specific variables type
+    type = list(
+      partners_num ~ "continuous2",
+      age ~ "continuous2"
+    )
+  ) |>
+  # Adjust headers
+  modify_header(label = "**Characteristic**", stat_0 = "**Value**") |>
+  # bold labels
+  bold_labels() 
+
+# View the table
+table1
+```
+
+## Primary Outcome
+
+```{r}
+#| label: primary
+#| tbl-cap: "Table 2"
+
+# Remove large table
+table1 = NULL
+
+# Calculate Order Rate
+table2 = df |>
+  filter(PO_FLAG=="Include",
+         FINISHED==1) |>
+  mutate(ORA_REDEEMED = ifelse(ORA_REDEEMED=="Yes",1,0)) |>
+  group_by(SITE) |>
+  summarise(ORA_REDEEMED = sum(ORA_REDEEMED),
+            WAVE = min(WAVE),
+            PLATFORM = min(PLATFORM)) |>
+  filter(WAVE < 3) |> # Exclude wave 4 from table
+  # Add bing back in (no participants)
+  bind_rows(
+    tibble(
+      SITE = "Bing",
+      ORA_REDEEMED = 0,
+      WAVE = 2,
+      PLATFORM = "Info site",
+    )
+  ) |>
+  mutate(duration = ifelse(WAVE==1, 70, 38),
+         order_rate = round(ORA_REDEEMED/duration, 2),
+         sort_helper = 0)
+
+# Calculate Subtotals
+subtotals = table2 |>
+  group_by(PLATFORM) |>
+  summarise(
+    ORA_REDEEMED = sum(ORA_REDEEMED),
+    duration = sum(duration),
+    .groups = "drop"
+  ) |>
+  mutate(
+    site = "Subtotal",
+    wave = "N/A",
+    order_rate = ORA_REDEEMED / duration,
+    sort_helper = 1
+  )
+
+# Calculate Grand Total
+grand_total = table2 |>
+  summarise(
+    ORA_REDEEMED = sum(ORA_REDEEMED),
+    duration = 108
+  ) |>
+  mutate(
+    PLATFORM = "Total",
+    site = "",
+    wave = "N/A",
+    order_rate = ORA_REDEEMED / duration,
+    sort_helper = 2
+  )
+
+# Bind, Sort, and Polish
+final_table = bind_rows(table2, subtotals, grand_total) |>
+  arrange(PLATFORM, sort_helper) |> 
+  # Select and Rename columns to match
+  select(
+    `Type of platform` = PLATFORM,
+    Site = SITE,
+    Wave = WAVE,
+    `Number of days` = duration,
+    `Number of test kits ordered` = ORA_REDEEMED,
+    `Order rate` = order_rate
+  )
+
+# Display the result
+final_table |>
+  # Initialize the gt table and define groups
+  gt(
+    groupname_col = "Type of platform", 
+    rowname_col = "Site"      
+  ) |>
+  
+  # Header
+  tab_stubhead(label = "Type of platform") |>
+  
+  # Format the numbers
+  fmt_number(
+    columns = c(`Order rate`),
+    decimals = 2
+  ) |>
+  fmt_number(
+    columns = c(`Number of days`, `Number of test kits ordered`),
+    decimals = 0
+  ) |>
+  
+  # Styling: Bold the "Subtotal" rows
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_stub(rows = matches("Subtotal"))
+  ) |>
+  
+  # Handle the "Total" row to make it stand out
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_row_groups(groups = "Total")
+  ) |>
+  
+  # Clean up the borders to look like a scientific paper
+  # Remove all default vertical lines
+  opt_table_lines(extent = "none") |>
+  # Add heavy lines at the top and bottom
+  tab_options(
+    table.border.top.style = "solid",
+    table.border.top.width = px(3),
+    table.border.bottom.style = "solid",
+    table.border.bottom.width = px(3),
+    # Add a line under the column headers
+    column_labels.border.bottom.style = "solid", 
+    column_labels.border.bottom.width = px(2)
+  ) |>
+  
+  # Hide NAs
+  sub_missing(
+    columns = everything(),
+    missing_text = ""
+  ) |>
+  
+  # Add the Footnote for Wave 1 (optional, matches the paper)
+  tab_footnote(
+    footnote = "Wave 1a duration was 70 days.",
+    locations = cells_body(
+      columns = Wave,
+      rows = Wave == "1"
+    )
+  )
+  
+```
+
+### Poisson Regression
+
+```{r}
+#| label: poisson
+
+
+model = glm(ORA_REDEEMED ~ PLATFORM * WAVE, 
+             family = poisson(link = "log"), 
+             offset = log(duration), 
+             data = table2)
+
+emm_category = emmeans(model, ~ PLATFORM, type = "response")
+
+# View the estimated rates per category
+print("Estimated Marginal Means (Rates):")
+print(emm_category)
+
+# Perform Pairwise Comparisons with Benjamini-Hochberg (BH) Correction
+contrasts_bh = contrast(emm_category, method = "pairwise", adjust = "bh")
+
+# Display the results
+print("Pairwise Comparisons with BH Correction:")
+print(contrasts_bh)
+
+
+# Cell-specific rates
+# Every combination of Category and Wave
+new_data = expand.grid(
+  PLATFORM = c("Social media", "Dating app", "Info site"),
+  WAVE = c(1, 2)
+)
+
+# Set the offset to 1
+new_data$duration = 1
+
+# Use predict()
+new_data$Predicted_Rate = predict(model, newdata = new_data, type = "response")
+
+new_data |>
+  mutate(
+    SITE = case_when(
+      PLATFORM == "Social media" & WAVE == 1 ~ "Facebook",
+      PLATFORM == "Social media" & WAVE == 2 ~ "Instagram",
+      PLATFORM == "Dating app"   & WAVE == 1 ~ "Grindr",
+      PLATFORM == "Dating app"   & WAVE == 2 ~ "Jack'D",
+      PLATFORM == "Info site"    & WAVE == 1 ~ "Google",
+      PLATFORM == "Info site"    & WAVE == 2 ~ "Bing",
+      TRUE ~ "Other"
+    )
+  ) |>
+  select(PLATFORM, SITE, WAVE, Predicted_Rate) |>
+  arrange(PLATFORM, WAVE) |>
+  gt(groupname_col = "PLATFORM") |>  # This creates the bold section headers
+  
+  # --- Labels & Headers ---
+  cols_label(
+    SITE = "Platform Name",
+    WAVE = "Wave",
+    Predicted_Rate = "Predicted Order Rate (kits/day)"
+  ) |>
+  tab_header(
+    title = "Predicted Test Kit Order Rates",
+    subtitle = "Estimates derived from Poisson Regression"
+  ) |>
+  fmt_number(
+    columns = vars(Predicted_Rate),
+    decimals = 3
+  ) |>
+  tab_options(
+    row_group.font.weight = "bold",
+    column_labels.font.weight = "bold",
+    table.border.top.color = "black",
+    table.border.bottom.color = "black"
+  )
+```
+
+```{r}
+model = glm(ORA_REDEEMED ~ SITE * WAVE,
+             family = poisson,
+             offset = log(duration),
+             data = table2)
+
+emmeans(model, ~ SITE, type="response")
+
+emm_category = emmeans(model, ~ SITE | WAVE, type = "response")
+
+# Perform Pairwise Comparisons with Benjamini-Hochberg (BH) Correction
+contrasts_bh = contrast(emm_category, method = "pairwise", adjust = "bh")
+
+# Display the results
+print("Pairwise Comparisons with BH Correction:")
+print(contrasts_bh)
+
+```
+
+## Secondary Outcomes
+
+#### a. Tobacco, alcohol, prescription medications, and other substance use
+
+```{r}
+#| label: secondary
+
+# Clear workspace except df
+rm(list = setdiff(ls(),"df"))
+
+# A - Tobacco, alcohol, prescription medicines, other substance abuse
+cols1 = c("alc", "cannabis")
+cols2 = c("stim", "opioids", "sedatives", "pres_stim")
+
+df_a = df |>
+  filter(PO_FLAG=="Include",
+         FINISHED==1) |>
+mutate(
+  # Change 9999 to NA
+  across(where(is.numeric), ~ na_if(.x, 9999)),
+  ORA_REDEEMED = ifelse(ORA_REDEEMED=="Over 60 days", "No",ORA_REDEEMED),
+  ORA_REDEEMED = ifelse(ORA_REDEEMED=="Ordered test kit", "Did not order test kit",ORA_REDEEMED),
+  alc       = rowSums(across(c(Q13_1, Q13_2, Q13_3, Q13_4)) == 1, na.rm = TRUE),
+  cannabis = rowSums(across(c(Q13_5, Q13_6, Q13_7)) == 1, na.rm = TRUE),
+  stim     = rowSums(across(c(Q13_8, Q13_9, Q13_10)) == 1, na.rm = TRUE),
+  opioids  = rowSums(across(c(Q13_11, Q13_12, Q13_13, Q13_14, Q13_15, Q13_16)) == 1, na.rm = TRUE),
+  sedatives = rowSums(across(c(Q13_17, Q13_18, Q13_19)) == 1, na.rm = TRUE),
+  pres_stim = rowSums(across(c(Q13_20, Q13_21, Q13_22)) == 1, na.rm = TRUE)
+  ) |>
+  select(alc, cannabis, stim, opioids, sedatives, pres_stim, ORA_REDEEMED) |>
+  mutate(across(all_of(cols1),
+    ~ case_when(
+        .x == 0 ~ "None",
+        .x == 1 ~ "Problem Use",
+        .x >= 2 ~ "High Risk Substance Use",
+        TRUE ~ NA_character_
+      )),
+        across(all_of(cols2),
+    ~ case_when(
+        .x == 0 ~ "None",
+        .x >= 1 ~ "Problem Use/High Risk Substance Use",
+        TRUE ~ NA_character_
+      ))
+    ) |>
+  mutate(across(all_of(cols1),
+    ~ factor(.x,
+        levels = c("None", "Problem Use", "High Risk Substance Use"),
+        ordered = TRUE
+    )
+  )) |>
+  rename(
+    alcohol   = alc,
+    cannabis  = cannabis,
+    stimulants      = stim,
+    opioids   = opioids,
+    sedatives = sedatives,
+    `prescription stimulants` = pres_stim
+  )
+   
+df_a |>
+  tbl_summary(
+    by = ORA_REDEEMED,
+    include = c(alcohol, cannabis, stimulants, opioids, sedatives, `prescription stimulants`),
+    percent = "column"
+  ) |>
+  add_p(test = all_categorical() ~ "fisher.test") |>
+  modify_header(all_stat_cols() ~ "**{level}**<br>N = {n}") |>
+  bold_labels()
+
+```
+
+#### b. Stage of Health Behavior Change
+
+```{r}
+#| label: b
+
+
+df |>
+  filter(PO_FLAG=="Include",
+         FINISHED==1) |>
+mutate(
+  # Change 9999 to NA
+  across(where(is.numeric), ~ na_if(.x, 9999)),
+  ORA_REDEEMED = ifelse(ORA_REDEEMED=="Over 60 days", "No",ORA_REDEEMED),
+  ORA_REDEEMED = ifelse(ORA_REDEEMED=="Ordered test kit", "Did not order test kit",ORA_REDEEMED),
+  Q15_1 = factor(Q15_1,
+    levels = 1:5,
+    labels = c(
+      "Precontemplation",
+      "Contemplation",
+      "Determination",
+      "Action",
+      "Maintenance"
+    )
+  )) |> 
+  select(ORA_REDEEMED, Q15_1) |>
+  rename(`Health Behavior Change` = Q15_1) |>
+  tbl_summary(
+    by = ORA_REDEEMED,
+    include = `Health Behavior Change`,
+    percent = "column"
+  ) |>
+  add_p(test = `Health Behavior Change` ~ "fisher.test") |>
+  modify_fmt_fun(p.value = function(x) style_pvalue(x, digits = 2)) |>
+  modify_header(all_stat_cols() ~ "**{level}**<br>N = {n}") |>
+  bold_labels()
+
+```
+
+#### c. Attitudes toward human immunodeficiency virus (HIV) testing
+
+```{r}
+#| label: c
+
+cols = c("Q15_3", "Q15_4", "Q15_5", "Q15_6", "Q15_7")
+
+df |>
+  filter(PO_FLAG=="Include",
+         FINISHED==1
+         ) |>
+  mutate(
+    # Change 9999 to NA
+    across(where(is.numeric), ~ na_if(.x, 9999)),
+    ORA_REDEEMED = ifelse(ORA_REDEEMED=="Over 60 days", "No",ORA_REDEEMED),
+    ORA_REDEEMED = ifelse(ORA_REDEEMED=="Ordered test kit", "Did not order test kit",ORA_REDEEMED)
+  ) |>
+  select(ORA_REDEEMED, Q15_3, Q15_4, Q15_5, Q15_6, Q15_7) |>
+  mutate(across(all_of(cols),
+    ~ case_when(
+        .x == 1 ~ "Agree",
+        .x >= 2 ~ "Disagree",
+        TRUE ~ NA_character_
+      )
+  )) |>
+  rename(
+    `Getting tested for HIV helps people feel better` = Q15_3,
+    `Getting tested for HIV helps people from getting HIV` = Q15_4,
+    `People in my life would leave if I had HIV` = Q15_5,
+    `People who tested positive for HIV should hide it from others` = Q15_6,
+    `I would rather not know if I have HIV` = Q15_7
+  ) |>
+  tbl_summary(
+    by = ORA_REDEEMED,
+    include = c(
+      `Getting tested for HIV helps people feel better`,
+      `Getting tested for HIV helps people from getting HIV`,
+      `People in my life would leave if I had HIV`,
+      `People who tested positive for HIV should hide it from others`,
+      `I would rather not know if I have HIV`
+    ),
+    percent = "column"
+  ) |>
+  add_p(test = all_categorical() ~ "fisher.test") |>
+  modify_fmt_fun(p.value = function(x) style_pvalue(x, digits = 2)) |>
+  modify_header(all_stat_cols() ~ "**{level}**<br>N = {n}") |>
+  bold_labels()
+  
+
+```
+
+#### d. Attitudes toward human immunodeficiency virus (HIV) treatment
+
+```{r}
+#| label: d
+
+df |>
+  filter(PO_FLAG=="Include",
+         FINISHED==1) |>
+  mutate(
+    # Change 9999 to NA
+    across(where(is.numeric), ~ na_if(.x, 9999)),
+    ORA_REDEEMED = ifelse(ORA_REDEEMED=="Over 60 days", "No",ORA_REDEEMED),
+    ORA_REDEEMED = ifelse(ORA_REDEEMED=="Ordered test kit", "Did not order test kit",ORA_REDEEMED)
+  ) |>
+  select(ORA_REDEEMED, Q94_1, Q94_5, Q94_6, Q94_7, Q94_8, Q94_9, Q94_10, Q94_11, Q94_12, Q94_13) |>
+  rename(
+    `I am less threatened by the idea of being HIV positive than I used to be` = Q94_1,
+    `I am less worried about HIV infection than I used to be` = Q94_5,
+    `I think HIV/AIDS is less of a problem than it used to be` = Q94_6,
+    `I think HIV/AIDS is a less serious threat than it used to be because of new HIV/AIDS treatments` = Q94_7,
+    `I am much less concerned about becoming HIV positive myself because of new HIV/AIDS treatments` = Q94_8,
+    `I think that condom use during sex is less necessary now that new HIV/AIDS treatments are available` = Q94_9,
+    `I think that someone who is HIV positive now needs to care less about condom use` = Q94_10,
+    `I think that the need for condom use is less than it used to be, because you can always start new treatments` = Q94_11,
+    `I think that someone who is HIV positive and uses new HIV/AIDS treatments can be cured` = Q94_12,
+    `I think that new HIV/AIDS treatments can eradicate the virus from your body` = Q94_13
+  ) |>
+  tbl_summary(
+    by = ORA_REDEEMED,
+    include = c(
+      `I am less threatened by the idea of being HIV positive than I used to be`,
+      `I am less worried about HIV infection than I used to be`,
+      `I think HIV/AIDS is less of a problem than it used to be`,
+      `I think HIV/AIDS is a less serious threat than it used to be because of new HIV/AIDS treatments`,
+      `I am much less concerned about becoming HIV positive myself because of new HIV/AIDS treatments`,
+      `I think that condom use during sex is less necessary now that new HIV/AIDS treatments are available`,
+      `I think that someone who is HIV positive now needs to care less about condom use`,
+      `I think that the need for condom use is less than it used to be, because you can always start new treatments`,
+      `I think that someone who is HIV positive and uses new HIV/AIDS treatments can be cured`,
+      `I think that new HIV/AIDS treatments can eradicate the virus from your body`
+    ),
+    type = where(is.numeric) ~ "continuous",
+    statistic = where(is.numeric) ~ "{mean} ({sd})",
+    digits = all_continuous() ~ 2,
+    missing = "no"
+  ) |>
+  add_p(test = all_continuous() ~ "wilcox.test") |>
+  modify_fmt_fun(p.value = function(x) style_pvalue(x, digits = 2)) |>
+  modify_header(stat_by = "**{level}**<br>N = {n}") |>
+  bold_labels()
+
+```
+
+#### e. Human immunodeficiency virus (HIV)-related stigma among study participants
+
+```{r}
+#| label: e
+
+cols = c("Q14_2", "Q14_3", "Q14_4", "Q14_5")
+
+df |>
+  filter(PO_FLAG == "Include", FINISHED == 1) |>
+  mutate(
+    # Change 9999 to NA
+    across(where(is.numeric), ~ na_if(.x, 9999)),
+
+    ORA_REDEEMED = ifelse(ORA_REDEEMED == "Over 60 days", "No", ORA_REDEEMED),
+    ORA_REDEEMED = ifelse(ORA_REDEEMED == "Ordered test kit", "Did not order test kit", ORA_REDEEMED),
+
+    # Recode 1-5 into 5 agreement levels (ordered)
+    across(all_of(cols), ~ factor(
+      .x,
+      levels = 1:7,
+      labels = c(
+        "Strongly agree",
+        "Agree",
+        "Somewhat agree",
+        "Neither agree nor disagree",
+        "Somewhat disagree",
+        "Disagree",
+        "Strongly disagree"
+      ),
+      ordered = TRUE
+    ))
+  ) |>
+  select(ORA_REDEEMED, all_of(cols)) |>
+  rename(
+    `I feel afraid of people living with HIV/AIDS` = Q14_2,
+    `I could not be friends with someone who has HIV/AIDS` = Q14_3,
+    `People who get HIV/AIDS through sex or drug use got what they deserve` = Q14_4,
+    `I feel anger toward people with HIV/AIDS` = Q14_5
+  ) |>
+  tbl_summary(
+    by = ORA_REDEEMED,
+    include = c(
+      `I feel afraid of people living with HIV/AIDS`,
+      `I could not be friends with someone who has HIV/AIDS`,
+      `People who get HIV/AIDS through sex or drug use got what they deserve`,
+      `I feel anger toward people with HIV/AIDS`
+    ),
+    percent = "column"
+  ) |>
+  add_p(test = all_categorical() ~ "wilcox.test") |>
+  modify_fmt_fun(p.value = function(x) style_pvalue(x, digits = 2)) |>
+  modify_header(all_stat_cols() ~ "**{level}**<br>N = {n}") |>
+  bold_labels()
+
+```
+
+#### f. Medical mistrust
+
+```{r}
+#| label: f
+cols = c("Q16_1", "Q16_2", "Q16_3", "Q16_4", "Q16_5", "Q16_6", "Q16_7")
+other_cols = setdiff(cols, "Q16_1")
+
+df |>
+  filter(PO_FLAG == "Include", FINISHED == 1) |>
+  mutate(
+    across(where(is.numeric), ~ na_if(.x, 9999)),
+
+    ORA_REDEEMED = ifelse(ORA_REDEEMED == "Over 60 days", "No", ORA_REDEEMED),
+    ORA_REDEEMED = ifelse(ORA_REDEEMED == "Ordered test kit", "Did not order test kit", ORA_REDEEMED),
+
+    # Q16_1 special coding: 28,30,33,34
+    Q16_1 = factor(
+      Q16_1,
+      levels = c(28, 30, 33, 34),
+      labels = c("Strongly agree", "Agree", "Disagree", "Strongly disagree"),
+      ordered = TRUE
+    ),
+
+    # Remaining Q16 columns: 1,2,6,7
+    across(all_of(other_cols), ~ factor(
+      .x,
+      levels = c(1, 2, 6, 7),
+      labels = c("Strongly agree", "Agree", "Disagree", "Strongly disagree"),
+      ordered = TRUE
+    ))
+  ) |>
+  select(ORA_REDEEMED, all_of(cols)) |>
+  rename(
+    `You’d better be cautious when dealing with health care organizations` = Q16_1,
+    `Patients have sometimes been deceived or misled by health care organizations` = Q16_2,
+    `When health care organizations make mistakes they usually cover it up` = Q16_3,
+    `Health care organizations have sometimes done harmful experiments on patients without their knowledge` = Q16_4,
+    `Health care organizations don’t always keep your information totally private` = Q16_5,
+    `Sometimes I wonder if health care organizations really know what they are doing` = Q16_6,
+    `Mistakes are common in health care organizations` = Q16_7
+  ) |>
+  tbl_summary(
+    by = ORA_REDEEMED,
+    include = c(
+      `You’d better be cautious when dealing with health care organizations`,
+      `Patients have sometimes been deceived or misled by health care organizations`,
+      `When health care organizations make mistakes they usually cover it up`,
+      `Health care organizations have sometimes done harmful experiments on patients without their knowledge`,
+      `Health care organizations don’t always keep your information totally private`,
+      `Sometimes I wonder if health care organizations really know what they are doing`,
+      `Mistakes are common in health care organizations`
+    ),
+    percent = "column"
+  ) |>
+  add_p(test = all_categorical() ~ "fisher.test") |>
+  modify_fmt_fun(p.value = function(x) style_pvalue(x, digits = 2)) |>
+  modify_header(all_stat_cols() ~ "**{level}**<br>N = {n}") |>
+  bold_labels()
+
+
+```
