@@ -441,7 +441,8 @@ final_table |>
       columns = Wave,
       rows = Wave == "1"
     )
-  )
+  ) |>
+  as_latex()
   
 ```
 
@@ -522,7 +523,8 @@ new_data |>
     column_labels.font.weight = "bold",
     table.border.top.color = "black",
     table.border.bottom.color = "black"
-  )
+  ) |>
+  as_latex()
 ```
 
 ```{r}
@@ -576,7 +578,8 @@ contrasts_df |>
   cols_align(
     align = "left",
     columns = contrast
-  )
+  ) |>
+  as_latex()
 ```
 
 ## Secondary Outcomes
@@ -650,7 +653,8 @@ df_a |>
   ) |>
   add_p(test = all_categorical() ~ "fisher.test") |>
   modify_header(all_stat_cols() ~ "**{level}**<br>N = {n}") |>
-  bold_labels()
+  bold_labels() |>
+  as_kable()
 
 ```
 
@@ -687,7 +691,8 @@ mutate(
   add_p(test = `Health Behavior Change` ~ "fisher.test") |>
   modify_fmt_fun(p.value = function(x) style_pvalue(x, digits = 2)) |>
   modify_header(all_stat_cols() ~ "**{level}**<br>N = {n}") |>
-  bold_labels()
+  bold_labels() |>
+  as_kable()
 
 ```
 
@@ -737,7 +742,8 @@ df |>
   add_p(test = all_categorical() ~ "fisher.test") |>
   modify_fmt_fun(p.value = function(x) style_pvalue(x, digits = 2)) |>
   modify_header(all_stat_cols() ~ "**{level}**<br>N = {n}") |>
-  bold_labels()
+  bold_labels() |>
+  as_kable()
   
 
 ```
@@ -791,7 +797,8 @@ df |>
   add_p(test = all_continuous() ~ "wilcox.test") |>
   modify_fmt_fun(p.value = function(x) style_pvalue(x, digits = 2)) |>
   modify_header(stat_by = "**{level}**<br>N = {n}") |>
-  bold_labels()
+  bold_labels() |>
+  as_kable()
 
 ```
 
@@ -847,7 +854,8 @@ df |>
   add_p(test = all_categorical() ~ "wilcox.test") |>
   modify_fmt_fun(p.value = function(x) style_pvalue(x, digits = 2)) |>
   modify_header(all_stat_cols() ~ "**{level}**<br>N = {n}") |>
-  bold_labels()
+  bold_labels() |>
+  as_kable()
 
 ```
 
@@ -910,7 +918,8 @@ df |>
   add_p(test = all_categorical() ~ "fisher.test") |>
   modify_fmt_fun(p.value = function(x) style_pvalue(x, digits = 2)) |>
   modify_header(all_stat_cols() ~ "**{level}**<br>N = {n}") |>
-  bold_labels()
+  bold_labels() |>
+  as_kable()
 
 
 ```
