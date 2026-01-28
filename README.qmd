@@ -16,6 +16,7 @@ editor: visual
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 library(tidyverse)
 library(stringr)
+library(knitr)
 library(gt)           # Package for tables
 library(gtsummary)    # Package for tables
 library(emmeans)
@@ -296,7 +297,8 @@ table1 = clean_df |>
   bold_labels() 
 
 # View the table
-table1
+table1 |>
+  as_kable()
 ```
 
 ## Primary Outcome
