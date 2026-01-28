@@ -23,9 +23,49 @@ The primary objective of this study is to compare the effectiveness of different
 
 ### Primary Analysis
 
-The primary analysis will look at order rate as an outcome. The order rate is defined by the number of tests ordered divided by the duration of the period or wave. The order rate for each site was calculated in @tbl-primary. There are two sites for each platform. In addition, a Poisson model was used to model site specific rates
+The primary analysis will look at order rate as an outcome. The order rate is defined by the number of tests ordered divided by the duration of the period or wave. The order rate for each site was calculated in @tbl-primary. There are two sites for each platform. 
+
+
+In addition, a Poisson model was used to model site specific rates.
+
+$$ log(o_{ij}) =log(t_i)+ \alpha+\beta_i+\gamma_{ij}+\beta*\gamma_{ij}  $$
+where $o_{ij}$ is the order rate for a site,
+      $t_i$ is the log duration or offset
+      $\beta_i$ is the wave effect
+      $\gamma_{j}$ is the site effect
+      $\beta*\gamma_{ij}$ is the interaction effect
+
 
 ### Secondary Analysis
+
+## Inclusion Criteria
+
+Individuals must meet all of the inclusion criteria in order to be eligible to participate in the study. Individuals participating in the study must: 
+
+
+1. Have clicked on one of the study-specific advertisements posted on the platforms/ websites described in this protocol; 
+2. Have been biologically born male (cis-gender man), per participant self-report; 
+3. Report condomless anal intercourse and more than one male sex partner in the 90 days prior to the date of the screening questionnaire; 
+4. Be between the ages of 18-30 years old, inclusive; 
+5. Self-identify as Latino and/or Black/African American; 
+6. Not currently on PrEP and haven’t taken PrEP in the last six months prior to the date of the screening questionnaire (per participant self-report); 
+7. Have not tested for HIV in the last 3 months prior to the date of the screening questionnaire (per participant self-report); 
+8. Have a Facebook account (for identity validation to reduce duplicate attempts at enrollment); and 
+9. Be willing to provide contact information (phone number, email) to the study team.
+
+## Exclusion Criteria
+
+Individuals must meet all of the inclusion criteria in order to be eligible to participate in the study. Individuals participating in the study must: 
+1. Have clicked on one of the study-specific advertisements posted on the platforms/ websites described in this protocol; 
+2. Have been biologically born male (cis-gender man), per participant self-report; 
+3. Report condomless anal intercourse and more than one male sex partner in the 90 days prior to the date of the screening questionnaire; 
+4. Be between the ages of 18-30 years old, inclusive; 
+5. Self-identify as Latino and/or Black/African American; 
+6. Not currently on PrEP and haven’t taken PrEP in the last six months prior to the date of the screening questionnaire (per participant self-report); 
+7. Have not tested for HIV in the last 3 months prior to the date of the screening questionnaire (per participant self-report); 
+8. Have a Facebook account (for identity validation to reduce duplicate attempts at enrollment); and 
+9. Be willing to provide contact information (phone number, email) to the study team.
+
 
 ```{r}
 #| label: inclusion
@@ -50,6 +90,11 @@ df = df |>
 ```
 
 ## Table 1
+
+After applying the inclusion and exclusion criteria listed above, there are still a few participants who do not have a primary outcome that need to be excluded. The resulting data has 254 participants. Replicating @tbl-table1 leads to the following results. 
+
+The table closely matches the original paper's, with a few minor differences. The quartile for age, other ethnicity, and few differences in reasons for not gettting HIV testing are slightly off. 
+
 
 ```{r}
 #| label: demographics
@@ -139,6 +184,7 @@ not_tested_HIV = df |>
 
 ```{r}
 #| label: table1
+#| tab-cap: "Table 1"
 
 # Create Table 1 DF
 clean_df = df |>
@@ -203,7 +249,7 @@ clean_df = df |>
     partners_num = as.numeric(Q11_2),
     age = as.numeric(Q3_1) # Assuming you have an 'Age' column
   ) |> 
-  select(age, ethnicity, race_clean, prep_clean, partners_num, condom_clean,  condomless_clean, ever_tested_clean, never_tested, months_since_test, not_tested_clean)
+  select(age, ethnicity, race_clean, prep_clean, partners_num, condom_clean,  condomless_clean, ever_tested_clean, months_since_test, never_tested, not_tested_clean)
 
 # Create table df
 table1 = clean_df |>
@@ -246,6 +292,8 @@ table1
 ```
 
 ## Primary Outcome
+
+When checking the model for overdispersion, the residual deviance is approximately equal to the residual degrees of freedom, which means that there is no significant over/underdispersion. 
 
 ```{r}
 #| label: primary
@@ -464,6 +512,9 @@ model = glm(ORA_REDEEMED ~ SITE * WAVE,
              family = poisson,
              offset = log(duration),
              data = table2)
+
+# Check for overdispersion
+dispersion = deviance(model) / df.residual(model) 
 
 emmeans(model, ~ SITE, type="response")
 
