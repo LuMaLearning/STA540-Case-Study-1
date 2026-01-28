@@ -1,7 +1,7 @@
 ---
 title: "STA540 Case 1"
 author: "Luxman Maheswaran"
-format: html
+format: gfm
 editor: visual
 ---
 
